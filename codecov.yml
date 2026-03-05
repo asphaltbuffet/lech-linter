@@ -1,0 +1,25 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 80%
+        threshold: 5%
+        informational: true
+
+component_management:
+  default_rules:
+    statuses:
+      - type: project
+        target: auto
+        branches:
+          - "!main"
+  individual_components:
+    - component_id: module_cli
+      name: cli
+      target: 20%
+      paths:
+        - cmd/**
+    - component_id: module_internal
+      name: internal
+      paths:
+        - internal/**
