@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-action.json
+name: 'lech-linter'
+description: 'Detect misspellings of Lechlitner in your files'
+author: 'asphaltbuffet'
+
+branding:
+  icon: 'check-circle'
+  color: 'blue'
+
+inputs:
+  files:
+    description: 'Space-separated list of files or glob patterns to lint'
+    required: false
+    default: ''
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Go
+      uses: actions/setup-go@v6
+      with:
+        go-version: 'stable'
+        cache: false
+
+    - name: Build lech-linter
+      shell: bash
+      run: go build -o "${{ runner.temp }}/lech-linter" "${{ github.action_path }}"
+
+    - name: Run lech-linter
+      shell: bash
+      env:
+        INPUT_FILES: ${{ inputs.files }}
+      run: |
+        if [ -n "$INPUT_FILES" ]; then
+          "${{ runner.temp }}/lech-linter" $INPUT_FILES
+        else
+          echo "No files specified; skipping lech-linter."
+        fi

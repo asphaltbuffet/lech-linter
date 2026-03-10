@@ -38,6 +38,44 @@ Output format: `file:line:col: possible misspelling "X" (did you mean "Lechlitne
 
 ---
 
+## GitHub Actions
+
+Use lech-linter directly in your workflows to catch misspellings of "Lechlitner" in pull requests and pushes.
+
+```yaml
+- name: Run lech-linter
+  uses: asphaltbuffet/lech-linter@v0
+  with:
+    files: '**/*.md'
+```
+
+### Inputs
+
+| Input   | Required | Default | Description                                          |
+|---------|----------|---------|------------------------------------------------------|
+| `files` | No       | `''`    | Space-separated list of files or glob patterns to lint |
+
+### Example workflow
+
+```yaml
+name: lech-linter
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run lech-linter
+        uses: asphaltbuffet/lech-linter@v0
+        with:
+          files: '**/*.md CONTRIBUTORS.txt'
+```
+
+---
+
 ## Installation
 
 All packages include shell completions (bash, fish, zsh) and a man page. No extra steps required.
