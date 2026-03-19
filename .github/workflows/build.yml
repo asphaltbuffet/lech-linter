@@ -40,7 +40,7 @@ jobs:
           go-version-file: 'go.mod'
 
       - name: Set up mise
-        uses: jdx/mise-action@v3
+        uses: jdx/mise-action@v4
 
       - name: Build
         run: mise run ci
@@ -73,7 +73,7 @@ jobs:
           go-version-file: 'go.mod'
 
       - name: Set up mise
-        uses: jdx/mise-action@v3
+        uses: jdx/mise-action@v4
 
       - uses: crazy-max/ghaction-upx@v4
         with:
